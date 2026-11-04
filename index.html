@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TireShop Nairobi — Better Tires. Safer Roads.</title>
+  <meta name="description" content="Premium tyres for cars, SUVs, trucks and vans in Nairobi. Delivered and fitted fast. Designed by Tekashi Designs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root,[data-theme="light"]{
+      --red:#E10600;--red-dark:#c00500;
+      --bg:#ffffff;--bg-2:#f5f5f5;--bg-3:#eeeeee;
+      --text:#111111;--text-2:#555;--text-3:#888;
+      --border:#e5e5e5;--card:#ffffff;
+      --shadow:0 10px 40px rgba(0,0,0,.08);
+      --nav-bg:rgba(255,255,255,.96);
+      --footer-bg:#111;
+      --radius:12px;--transition:.25s ease;
+    }
+    [data-theme="dark"]{
+      --bg:#0f0f0f;--bg-2:#1a1a1a;--bg-3:#252525;
+      --text:#f0f0f0;--text-2:#b0b0b0;--text-3:#777;
+      --border:#333;--card:#1a1a1a;
+      --shadow:0 10px 40px rgba(0,0,0,.4);
+      --nav-bg:rgba(15,15,15,.96);
+      --footer-bg:#0a0a0a;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    ul{list-style:none}
+    .container{width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+    .text-center{text-align:center}
+    .hidden{display:none!important}
+
+    /* BUTTONS */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;font-size:14px;font-weight:600;border-radius:8px;border:none;cursor:pointer;transition:all var(--transition);font-family:inherit}
+    .btn-primary{background:var(--red);color:#fff}
+    .btn-primary:hover{background:var(--red-dark);transform:translateY(-1px);box-shadow:0 6px 18px rgba(225,6,0,.3)}
+    .btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+    .btn-outline:hover{background:#fff;color:#111;border-color:#fff}
+    .btn-outline-dark{background:transparent;color:var(--text);border:1.5px solid var(--border)}
+    .btn-outline-dark:hover{border-color:var(--red);color:var(--red)}
+    .btn-wa{background:#25D366;color:#fff}
+    .btn-wa:hover{background:#1ebe57;transform:translateY(-1px)}
+    .btn-sm{padding:9px 16px;font-size:13px}
+    .full-width{width:100%}
+
+    /* NAV */
+    .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:background .3s}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+    .logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:20px}
+    .logo-icon{width:34px;height:34px;background:var(--red);color:#fff;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}
+    .logo-text span{color:var(--red)}
+    .nav-links{display:flex;gap:28px}
+    .nav-links a{font-size:14px;font-weight:500;color:var(--text-2);transition:color var(--transition);position:relative}
+    .nav-links a:hover,.nav-links a.active{color:var(--text)}
+    .nav-links a.active::after{content:'';position:absolute;bottom:-4px;left:0;width:100%;height:2px;background:var(--red)}
+    .nav-actions{display:flex;align-items:center;gap:8px}
+    .icon-btn{width:38px;height:38px;border-radius:50%;border:none;background:var(--bg-2);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:all var(--transition)}
+    .icon-btn:hover{background:var(--bg-3)}
+    .cart-count{position:absolute;top:-2px;right:-2px;background:var(--red);color:#fff;font-size:10px;font-weight:700;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .mobile-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+    .mobile-toggle span{width:20px;height:2px;background:var(--text)}
+
+    /* HERO */
+    .hero{position:relative;min-height:88vh;display:flex;align-items:center;padding-top:68px;background:#0a0a0a;color:#fff;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&h=900&fit=crop') center/cover no-repeat;opacity:.35}
+    .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,.55) 55%,transparent 100%)}
+    .hero-content{position:relative;z-index:2;padding:70px 24px}
+    .hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:2px;color:var(--red);margin-bottom:14px;text-transform:uppercase}
+    .hero-text h1{font-size:clamp(2.4rem,5.5vw,3.8rem);font-weight:800;line-height:1.08;margin-bottom:16px}
+    .hero-text h1 span{color:var(--red)}
+    .hero-text p{font-size:1.05rem;color:rgba(255,255,255,.78);margin-bottom:28px;max-width:440px}
+    .hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+    .hero-stats{display:flex;gap:32px;flex-wrap:wrap}
+    .hero-stats div{display:flex;flex-direction:column}
+    .hero-stats strong{font-size:13px;margin-bottom:2px}
+    .hero-stats span{font-size:11px;color:rgba(255,255,255,.5)}
+
+    /* FEATURES */
+    .features{padding:0;background:var(--bg);margin-top:-28px;position:relative;z-index:5}
+    .features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden}
+    .feature-card{text-align:center;padding:28px 18px;border-right:1px solid var(--border)}
+    .feature-card:last-child{border-right:none}
+    .feature-icon{font-size:26px;margin-bottom:10px;color:var(--red)}
+    .feature-card h3{font-size:14px;font-weight:700;margin-bottom:4px}
+    .feature-card p{font-size:12px;color:var(--text-2)}
+
+    /* SECTION */
+    .section-header{text-align:center;margin-bottom:36px}
+    .section-header h2{font-size:clamp(1.6rem,3.2vw,2.2rem);font-weight:800;line-height:1.2;margin-bottom:8px}
+    .section-header p{color:var(--text-2);font-size:.95rem}
+
+    /* VEHICLES */
+    .vehicles{padding:70px 0;background:var(--bg-2)}
+    .vehicle-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .vehicle-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px 16px;text-align:center;cursor:pointer;transition:all var(--transition)}
+    .vehicle-card:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:var(--shadow)}
+    .vehicle-card .icon{font-size:32px;margin-bottom:10px;color:var(--red)}
+    .vehicle-card h3{font-size:15px;font-weight:700}
+
+    /* BRANDS */
+    .brands-strip{padding:28px 0;background:var(--bg);border-bottom:1px solid var(--border)}
+    .brands-row{display:flex;justify-content:center;flex-wrap:wrap;gap:28px;align-items:center}
+    .brand-name{font-size:13px;font-weight:700;letter-spacing:1px;color:var(--text-3);cursor:pointer;transition:color var(--transition)}
+    .brand-name:hover{color:var(--red)}
+
+    /* FILTER + PRODUCTS */
+    .products{padding:70px 0;background:var(--bg)}
+    .filter-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;background:var(--bg-2);border-radius:var(--radius);padding:16px 18px;margin-bottom:28px;border:1px solid var(--border)}
+    .filter-bar label{display:block;font-size:11px;font-weight:600;color:var(--text-2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+    .filter-select,.filter-input{padding:9px 12px;border:1px solid var(--border);border-radius:7px;background:var(--card);color:var(--text);font-size:13px;font-family:inherit;outline:none;min-width:130px}
+    .filter-select:focus,.filter-input:focus{border-color:var(--red)}
+    .filter-clear{font-size:13px;color:var(--red);cursor:pointer;font-weight:600;margin-left:auto;align-self:center}
+    .products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .product-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;transition:all var(--transition);position:relative}
+    .product-card:hover{box-shadow:var(--shadow);transform:translateY(-4px)}
+    .product-badge{position:absolute;top:10px;left:10px;background:#111;color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;z-index:2;text-transform:uppercase}
+    .product-badge.sale{background:#16a34a}
+    .product-img{height:190px;background:var(--bg-2);overflow:hidden;cursor:pointer}
+    .product-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+    .product-card:hover .product-img img{transform:scale(1.05)}
+    .product-info{padding:14px}
+    .product-brand{font-size:11px;font-weight:700;color:var(--red);letter-spacing:.5px;margin-bottom:2px}
+    .product-info h3{font-size:14px;font-weight:700;margin-bottom:2px;cursor:pointer}
+    .product-size{font-size:12px;color:var(--text-2);margin-bottom:6px}
+    .product-rating{font-size:12px;color:#f59e0b;margin-bottom:8px}
+    .product-rating span{color:var(--text-3);font-size:11px}
+    .product-price{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .price{font-size:16px;font-weight:800}
+    .product-actions{display:flex;gap:6px;margin-top:10px}
+    .product-actions .btn{flex:1;padding:9px;font-size:12px}
+
+    /* DETAIL */
+    .detail-page{padding:90px 0 60px;min-height:100vh;background:var(--bg)}
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+    .detail-gallery{position:sticky;top:88px}
+    .detail-main-img{border-radius:var(--radius);overflow:hidden;background:var(--bg-2);border:1px solid var(--border);margin-bottom:12px;aspect-ratio:1}
+    .detail-main-img img{width:100%;height:100%;object-fit:cover}
+    .detail-thumbs{display:flex;gap:8px}
+    .detail-thumbs img{width:68px;height:68px;object-fit:cover;border-radius:7px;border:2px solid transparent;cursor:pointer;background:var(--bg-2)}
+    .detail-thumbs img.active,.detail-thumbs img:hover{border-color:var(--red)}
+    .detail-info h1{font-size:1.7rem;font-weight:800;margin-bottom:8px}
+    .detail-meta{display:flex;gap:12px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+    .detail-rating{color:#f59e0b;font-size:13px}
+    .detail-brand{font-size:12px;color:var(--text-2);background:var(--bg-2);padding:3px 10px;border-radius:20px}
+    .detail-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:16px}
+    .detail-price{font-size:1.9rem;font-weight:800;color:var(--red)}
+    .detail-old{font-size:1rem;color:var(--text-3);text-decoration:line-through}
+    .detail-desc{color:var(--text-2);margin-bottom:20px;line-height:1.7;font-size:14px}
+    .detail-specs{background:var(--bg-2);border-radius:var(--radius);padding:16px;margin-bottom:24px;border:1px solid var(--border)}
+    .detail-specs h4{font-size:13px;font-weight:700;margin-bottom:10px}
+    .spec-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+    .spec-row:last-child{border-bottom:none}
+    .spec-row span:first-child{color:var(--text-2)}
+    .detail-actions{display:flex;flex-direction:column;gap:10px}
+    .qty-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+    .qty-btn{width:34px;height:34px;border-radius:7px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .qty-val{font-weight:700;min-width:28px;text-align:center}
+    .back-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--text-2);margin-bottom:20px;font-weight:500;cursor:pointer}
+    .back-link:hover{color:var(--red)}
+
+    /* STEPS */
+    .steps{padding:70px 0;background:var(--footer-bg);color:#fff}
+    .steps .section-header h2,.steps .section-header p{color:#fff}
+    .steps .section-header p{opacity:.7}
+    .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .step-card{text-align:center;padding:32px 20px}
+    .step-num{width:42px;height:42px;background:var(--red);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;margin:0 auto 14px}
+    .step-card h3{font-size:15px;font-weight:700;margin-bottom:6px}
+    .step-card p{font-size:13px;opacity:.7}
+
+    /* TESTIMONIALS */
+    .testimonials{padding:70px 0;background:var(--bg)}
+    .testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .testimonial-card{background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
+    .stars{color:#f59e0b;font-size:13px;margin-bottom:10px}
+    .testimonial-card p{font-size:13px;line-height:1.65;margin-bottom:16px;color:var(--text-2)}
+    .customer{font-size:13px}
+    .customer strong{display:block;font-weight:700}
+    .customer span{color:var(--text-3);font-size:12px}
+
+    /* CONTACT */
+    .contact{padding:70px 0;background:var(--bg-2)}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+    .contact-info h2{font-size:1.7rem;font-weight:800;margin-bottom:10px}
+    .contact-info p{color:var(--text-2);margin-bottom:22px;font-size:14px}
+    .contact-item{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+    .contact-item .icon{width:40px;height:40px;background:var(--card);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;border:1px solid var(--border)}
+    .contact-item strong{display:block;font-size:13px;margin-bottom:1px}
+    .contact-item span{font-size:13px;color:var(--text-2)}
+    .contact-form{background:var(--card);border-radius:var(--radius);padding:28px;border:1px solid var(--border)}
+    .contact-form h3{font-size:16px;font-weight:700;margin-bottom:16px}
+    .form-group{margin-bottom:14px}
+    .form-group label{display:block;font-size:12px;font-weight:600;margin-bottom:5px;color:var(--text-2)}
+    .form-group input,.form-group textarea{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:7px;background:var(--bg);color:var(--text);font-size:14px;font-family:inherit;outline:none}
+    .form-group input:focus,.form-group textarea:focus{border-color:var(--red)}
+    .form-group textarea{resize:vertical;min-height:90px}
+
+    /* FAQ */
+    .faq{padding:70px 0;background:var(--bg)}
+    .faq-list{max-width:720px;margin:0 auto}
+    .faq-item{background:var(--card);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;border:1px solid var(--border)}
+    .faq-question{width:100%;padding:16px 18px;background:none;border:none;text-align:left;font-size:14px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:inherit;color:var(--text)}
+    .faq-icon{font-size:18px;color:var(--red);transition:transform var(--transition)}
+    .faq-item.active .faq-icon{transform:rotate(45deg)}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .faq-item.active .faq-answer{max-height:200px}
+    .faq-answer p{padding:0 18px 16px;color:var(--text-2);font-size:13px;line-height:1.65}
+
+    /* TRUST */
+    .trust{padding:20px 0 40px;background:var(--bg)}
+    .trust-list{display:flex;justify-content:center;flex-wrap:wrap;gap:24px;font-size:13px;color:var(--text-2)}
+    .trust-list span{display:flex;align-items:center;gap:6px}
+    .trust-list span::before{content:'✓';color:var(--red);font-weight:700}
+
+    /* FOOTER */
+    .footer{background:var(--footer-bg);color:#fff;padding-top:50px}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1.3fr;gap:36px;padding-bottom:40px}
+    .footer-brand p{color:rgba(255,255,255,.5);margin:12px 0 18px;font-size:13px;max-width:260px}
+    .footer-links h4{font-size:13px;font-weight:700;margin-bottom:14px}
+    .footer-links a{display:block;color:rgba(255,255,255,.5);font-size:13px;margin-bottom:8px;transition:color var(--transition)}
+    .footer-links a:hover{color:#fff}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding:16px 0}
+    .footer-bottom .container{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(255,255,255,.4)}
+    .footer-legal{display:flex;gap:18px}
+    .footer-legal a:hover{color:#fff}
+
+    /* CART */
+    .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:all var(--transition);z-index:2000}
+    .cart-overlay.open{opacity:1;visibility:visible}
+    .cart-drawer{position:fixed;top:0;right:0;width:100%;max-width:380px;height:100%;background:var(--card);z-index:2001;transform:translateX(100%);transition:transform .3s ease;display:flex;flex-direction:column;color:var(--text)}
+    .cart-drawer.open{transform:translateX(0)}
+    .cart-header{display:flex;justify-content:space-between;align-items:center;padding:18px;border-bottom:1px solid var(--border)}
+    .cart-header h3{font-size:16px;font-weight:700}
+    .close-cart{background:none;border:none;font-size:24px;cursor:pointer;color:var(--text-2);line-height:1}
+    .cart-items{flex:1;overflow-y:auto;padding:18px}
+    .empty-cart{text-align:center;color:var(--text-2);padding:36px 0;font-size:14px}
+    .cart-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+    .cart-item-img{width:60px;height:60px;background:var(--bg-2);border-radius:7px;overflow:hidden;flex-shrink:0}
+    .cart-item-img img{width:100%;height:100%;object-fit:cover}
+    .cart-item-info{flex:1}
+    .cart-item-info h4{font-size:13px;font-weight:600;margin-bottom:2px}
+    .cart-item-info .price{font-size:13px;font-weight:700}
+    .cart-item-remove{background:none;border:none;color:var(--text-3);cursor:pointer;font-size:15px;align-self:flex-start}
+    .cart-footer{padding:18px;border-top:1px solid var(--border)}
+    .cart-total{display:flex;justify-content:space-between;margin-bottom:12px;font-size:14px}
+    .cart-total strong{font-size:17px}
+    .cart-footer .btn{margin-bottom:8px}
+
+    /* FLOAT WA */
+    .wa-float{position:fixed;bottom:22px;right:22px;z-index:1500;width:54px;height:54px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(37,211,102,.4);cursor:pointer;transition:transform .2s;color:#fff;font-size:26px;text-decoration:none}
+    .wa-float:hover{transform:scale(1.07)}
+
+    /* RESPONSIVE */
+    @media(max-width:1024px){
+      .features-grid,.vehicle-grid,.products-grid{grid-template-columns:repeat(2,1fr)}
+      .about-grid,.contact-grid,.detail-grid{grid-template-columns:1fr;gap:32px}
+      .detail-gallery{position:static}
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:768px){
+      .nav-links{display:none}
+      .nav-links.mobile-open{display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:var(--card);padding:18px;gap:12px;box-shadow:var(--shadow);border-bottom:1px solid var(--border);z-index:999}
+      .mobile-toggle{display:flex}
+      .features-grid{grid-template-columns:1fr 1fr}
+      .feature-card{border-right:none;border-bottom:1px solid var(--border)}
+      .vehicle-grid,.products-grid,.steps-grid,.testimonials-grid{grid-template-columns:1fr}
+      .filter-bar{flex-direction:column;align-items:stretch}
+      .filter-clear{margin-left:0}
+      .footer-grid{grid-template-columns:1fr;gap:24px}
+      .footer-bottom .container{flex-direction:column;gap:8px;text-align:center}
+      .product-actions{flex-direction:column}
+    }
+    @media(max-width:480px){
+      .features-grid{grid-template-columns:1fr}
+      .hero-btns{flex-direction:column}
+      .btn{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="logo" onclick="showHome();return false">
+        <span class="logo-icon">T.</span>
+        <span class="logo-text">TIRE<span>SHOP</span></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" class="active" onclick="showHome()">Home</a>
+        <a href="#shop" onclick="showHome();setTimeout(()=>document.getElementById('shop').scrollIntoView({behavior:'smooth'}),80)">Shop</a>
+        <a href="#about" onclick="showHome();setTimeout(()=>document.getElementById('about').scrollIntoView({behavior:'smooth'}),80)">About</a>
+        <a href="#contact" onclick="showHome();setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),80)">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="themeToggle" title="Dark / Light mode">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" aria-label="Cart">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count">0</span>
+        </button>
+        <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HOME VIEW -->
+  <div id="homeView">
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="hero-bg"></div>
+      <div class="container hero-content">
+        <div class="hero-text">
+          <div class="hero-eyebrow">Nairobi's Tyre Specialists</div>
+          <h1>Better Tires.<br><span>Safer Roads.</span></h1>
+          <p>Premium tyres for cars, SUVs, trucks and vans — delivered and fitted fast across Nairobi.</p>
+          <div class="hero-btns">
+            <a href="#shop" class="btn btn-primary">Shop Tyres</a>
+            <a href="https://wa.me/254789163037?text=Hello%20TireShop%2C%20I%27d%20like%20a%20quote." target="_blank" class="btn btn-wa">WhatsApp Us</a>
+          </div>
+          <div class="hero-stats">
+            <div><strong>Same-day delivery</strong><span>Across Nairobi</span></div>
+            <div><strong>Free alignment check</strong><span>With every fitment</span></div>
+            <div><strong>Warranty</strong><span>On every tyre</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+      <div class="container">
+        <div class="features-grid">
+          <div class="feature-card"><div class="feature-icon">▣</div><h3>Wide Selection</h3><p>Top brands for every vehicle</p></div>
+          <div class="feature-card"><div class="feature-icon">💰</div><h3>Best Prices</h3><p>Honest pricing in KSh</p></div>
+          <div class="feature-card"><div class="feature-icon">🚚</div><h3>Fast Delivery</h3><p>Same-day across Nairobi</p></div>
+          <div class="feature-card"><div class="feature-icon">🎧</div><h3>Expert Support</h3><p>Advice on WhatsApp anytime</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOP BY VEHICLE -->
+    <section id="shop" class="vehicles">
+      <div class="container">
+        <div class="section-header">
+          <h2>Shop by Vehicle</h2>
+          <p>Select your vehicle type to filter tyres</p>
+        </div>
+        <div class="vehicle-grid">
+          <div class="vehicle-card" onclick="filterByVehicle('car')"><div class="icon">🚗</div><h3>Car</h3></div>
+          <div class="vehicle-card" onclick="filterByVehicle('suv')"><div class="icon">🚙</div><h3>SUV</h3></div>
+          <div class="vehicle-card" onclick="filterByVehicle('truck')"><div class="icon">🛻</div><h3>Truck</h3></div>
+          <div class="vehicle-card" onclick="filterByVehicle('van')"><div class="icon">🚐</div><h3>Van</h3></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRANDS -->
+    <div class="brands-strip">
+      <div class="container brands-row">
+        <span class="brand-name" onclick="filterByBrand('Michelin')">MICHELIN</span>
+        <span class="brand-name" onclick="filterByBrand('Bridgestone')">BRIDGESTONE</span>
+        <span class="brand-name" onclick="filterByBrand('Goodyear')">GOODYEAR</span>
+        <span class="brand-name" onclick="filterByBrand('Continental')">CONTINENTAL</span>
+        <span class="brand-name" onclick="filterByBrand('Pirelli')">PIRELLI</span>
+        <span class="brand-name" onclick="filterByBrand('Yokohama')">YOKOHAMA</span>
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <section id="products" class="products">
+      <div class="container">
+        <div class="section-header">
+          <h2>Featured Tyres</h2>
+          <p>Filter by vehicle, size, brand or price</p>
+        </div>
+        <div class="filter-bar">
+          <div>
+            <label>Vehicle</label>
+            <select class="filter-select" id="filterVehicle" onchange="applyFilters()">
+              <option value="">All</option>
+              <option value="car">Car</option>
+              <option value="suv">SUV</option>
+              <option value="truck">Truck</option>
+              <option value="van">Van</option>
+            </select>
+          </div>
+          <div>
+            <label>Size</label>
+            <select class="filter-select" id="filterSize" onchange="applyFilters()">
+              <option value="">All sizes</option>
+              <option value="185/65R15">185/65R15</option>
+              <option value="195/65R15">195/65R15</option>
+              <option value="205/55R16">205/55R16</option>
+              <option value="215/55R17">215/55R17</option>
+              <option value="225/45R17">225/45R17</option>
+              <option value="235/55R18">235/55R18</option>
+              <option value="265/65R17">265/65R17</option>
+              <option value="275/70R16">275/70R16</option>
+              <option value="315/80R22.5">315/80R22.5</option>
+            </select>
+          </div>
+          <div>
+            <label>Brand</label>
+            <select class="filter-select" id="filterBrand" onchange="applyFilters()">
+              <option value="">All brands</option>
+              <option value="Michelin">Michelin</option>
+              <option value="Bridgestone">Bridgestone</option>
+              <option value="Goodyear">Goodyear</option>
+              <option value="Continental">Continental</option>
+              <option value="Pirelli">Pirelli</option>
+              <option value="Yokohama">Yokohama</option>
+            </select>
+          </div>
+          <div>
+            <label>Max price (KSh)</label>
+            <input type="number" class="filter-input" id="filterPrice" placeholder="e.g. 25000" oninput="applyFilters()" style="min-width:110px">
+          </div>
+          <span class="filter-clear" onclick="clearFilters()">Clear filters</span>
+        </div>
+        <div class="products-grid" id="productsGrid"></div>
+        <p id="noResults" class="text-center" style="display:none;color:var(--text-2);padding:40px 0;font-size:14px">No tyres match your filters.</p>
+      </div>
+    </section>
+
+    <!-- STEPS -->
+    <section class="steps">
+      <div class="container">
+        <div class="section-header">
+          <h2>3 Simple Steps</h2>
+          <p>From choice to fitted tyres</p>
+        </div>
+        <div class="steps-grid">
+          <div class="step-card"><div class="step-num">1</div><h3>Choose Your Vehicle</h3><p>Select type or enter your size. We show only compatible tyres.</p></div>
+          <div class="step-card"><div class="step-num">2</div><h3>Select Your Tyres</h3><p>Compare brands and prices. Add to cart or order on WhatsApp.</p></div>
+          <div class="step-card"><div class="step-num">3</div><h3>Fast Delivery & Fitting</h3><p>Same-day options across Nairobi. Free alignment check.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <h2>What Drivers Say</h2>
+          <p>Real feedback from Nairobi customers</p>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"Ordered on WhatsApp at 9am, fitted by lunchtime. Amazing service."</p>
+            <div class="customer"><strong>Wanjiku M.</strong><span>Westlands</span></div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"Best price I found for Prado tyres in town. Highly recommend."</p>
+            <div class="customer"><strong>Brian O.</strong><span>Kilimani</span></div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"They helped me choose the right size for my van. Very professional."</p>
+            <div class="customer"><strong>Achieng K.</strong><span>Karen</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+      <div class="container contact-grid">
+        <div class="contact-info">
+          <h2>Get in Touch</h2>
+          <p>Questions about sizes, delivery or fitting? Message us anytime — we reply fast on WhatsApp.</p>
+          <div class="contact-item"><div class="icon">📱</div><div><strong>WhatsApp / Call</strong><span>+254 789 163 037</span></div></div>
+          <div class="contact-item"><div class="icon">📍</div><div><strong>Location</strong><span>Nairobi, Kenya</span></div></div>
+          <div class="contact-item"><div class="icon">⏰</div><div><strong>Hours</strong><span>Mon–Sat, 8am – 6pm</span></div></div>
+          <a href="https://wa.me/254789163037" target="_blank" class="btn btn-wa" style="margin-top:10px">Open WhatsApp Chat</a>
+        </div>
+        <div class="contact-form">
+          <h3>Send a Message</h3>
+          <form id="contactForm" onsubmit="sendWhatsApp(event)">
+            <div class="form-group"><label>Your Name</label><input type="text" id="cName" required placeholder="e.g. John Kamau"></div>
+            <div class="form-group"><label>Phone Number</label><input type="tel" id="cPhone" required placeholder="07XX XXX XXX"></div>
+            <div class="form-group"><label>Vehicle / Tyre Size (optional)</label><input type="text" id="cVehicle" placeholder="e.g. Toyota Fielder 195/65R15"></div>
+            <div class="form-group"><label>Message</label><textarea id="cMessage" required placeholder="Tell us what you need..."></textarea></div>
+            <button type="submit" class="btn btn-wa full-width">Send via WhatsApp</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+      <div class="container">
+        <div class="section-header"><h2>FAQ</h2></div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">Do you deliver outside Nairobi? <span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>Yes. We deliver to major towns. Contact us on WhatsApp with your location for delivery options and timeline.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">Do you offer fitting? <span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>Yes. We can arrange professional fitting and a free wheel alignment check with your purchase.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">How do I pay? <span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>M-Pesa, bank transfer or cash on delivery/fitting. We’ll confirm payment method when you order on WhatsApp.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">How do I know my tyre size? <span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>Look on the sidewall of your current tyres (e.g. 205/55R16). Or message us your car model and we’ll recommend the correct size.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust">
+      <div class="container trust-list">
+        <span>Genuine, date-checked tyres</span>
+        <span>Free wheel alignment check</span>
+        <span>Warranty on every tyre</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETAIL VIEW -->
+  <div id="detailView" class="detail-page hidden">
+    <div class="container">
+      <div class="back-link" onclick="showHome()">← Back to Shop</div>
+      <div class="detail-grid">
+        <div class="detail-gallery">
+          <div class="detail-main-img"><img id="detailImg" src="" alt=""></div>
+          <div class="detail-thumbs" id="detailThumbs"></div>
+        </div>
+        <div class="detail-info">
+          <h1 id="detailName"></h1>
+          <div class="detail-meta">
+            <span class="detail-rating" id="detailRating"></span>
+            <span class="detail-brand" id="detailBrand"></span>
+          </div>
+          <div class="detail-price-row">
+            <span class="detail-price" id="detailPrice"></span>
+            <span class="detail-old" id="detailOld"></span>
+          </div>
+          <p class="detail-desc" id="detailDesc"></p>
+          <div class="detail-specs">
+            <h4>Specifications</h4>
+            <div class="spec-row"><span>Size</span><span id="detailSize"></span></div>
+            <div class="spec-row"><span>Type</span><span id="detailType"></span></div>
+            <div class="spec-row"><span>Vehicle</span><span id="detailVehicle"></span></div>
+            <div class="spec-row"><span>Load Index</span><span id="detailLoad"></span></div>
+            <div class="spec-row"><span>Speed Rating</span><span id="detailSpeed"></span></div>
+          </div>
+          <div class="detail-actions">
+            <div class="qty-row">
+              <button class="qty-btn" onclick="changeQty(-1)">−</button>
+              <span class="qty-val" id="detailQty">1</span>
+              <button class="qty-btn" onclick="changeQty(1)">+</button>
+            </div>
+            <button class="btn btn-primary full-width" id="detailAddCart">Add to Cart</button>
+            <a href="#" class="btn btn-wa full-width" id="detailWA" target="_blank">Order on WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo" onclick="showHome();return false"><span class="logo-icon">T.</span><span class="logo-text">TIRE<span>SHOP</span></span></a>
+        <p>Quality tyres delivered and fitted across Nairobi. Designed by Tekashi Designs.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Shop</h4>
+        <a href="#shop" onclick="showHome()">All tyres</a>
+        <a href="#about" onclick="showHome()">About us</a>
+        <a href="#contact" onclick="showHome()">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h4>Visit</h4>
+        <a href="#">Nairobi, Kenya</a>
+        <a href="https://wa.me/254789163037" target="_blank">+254 789 163 037</a>
+        <a href="#">Mon–Sat, 8am – 6pm</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 TireShop · Designed by Tekashi Designs</p>
+        <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header"><h3>Your Cart</h3><button class="close-cart" id="closeCart">×</button></div>
+    <div class="cart-items" id="cartItems"><p class="empty-cart">Your cart is empty</p></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>Total</span><strong id="cartTotal">KSh 0</strong></div>
+      <a href="#" class="btn btn-wa full-width" id="cartWA" target="_blank">Order Cart on WhatsApp</a>
+      <button class="btn btn-outline-dark full-width" id="clearCartBtn" style="margin-top:6px">Clear Cart</button>
+    </div>
+  </aside>
+
+  <!-- FLOAT WA -->
+  <a href="https://wa.me/254789163037?text=Hello%20TireShop%2C%20I%20need%20help" class="wa-float" target="_blank" title="Chat on WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.118 1.534 5.85L.057 23.25a.75.75 0 00.92.92l5.4-1.477A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.71 9.71 0 01-4.95-1.35l-.35-.21-3.63.99.97-3.55-.23-.37A9.7 9.7 0 012.25 12 9.75 9.75 0 0112 2.25 9.75 9.75 0 0121.75 12 9.75 9.75 0 0112 21.75z"/></svg>
+  </a>
+
+  <script>
+    const products = [
+      {id:1,name:"Primacy 4",brand:"Michelin",price:14500,oldPrice:null,size:"205/55R16",type:"Touring",vehicle:"car",rating:4.9,reviews:2100,load:"91",speed:"V",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop",desc:"Safe and comfortable touring tyre with excellent wet braking and long tread life. Ideal for daily Nairobi commuting."},
+      {id:2,name:"Turanza T005",brand:"Bridgestone",price:11200,oldPrice:null,size:"195/65R15",type:"Touring",vehicle:"car",rating:4.7,reviews:1800,load:"91",speed:"V",img:"https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&h=600&fit=crop",desc:"Quiet, comfortable tyre with strong wet performance. Perfect for Toyota Fielder, Premio and similar saloons."},
+      {id:3,name:"EfficientGrip Performance",brand:"Goodyear",price:9800,oldPrice:11500,size:"185/65R15",type:"Eco",vehicle:"car",rating:4.6,reviews:950,load:"88",speed:"H",img:"https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=600&h=600&fit=crop",desc:"Fuel-efficient tyre with good wet grip. Excellent everyday value for smaller cars."},
+      {id:4,name:"PremiumContact 6",brand:"Continental",price:17900,oldPrice:null,size:"225/45R17",type:"Performance",vehicle:"car",rating:4.8,reviews:1400,load:"94",speed:"W",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop",desc:"Premium performance tyre with outstanding wet handling and short braking distances."},
+      {id:5,name:"Cinturato P7",brand:"Pirelli",price:16800,oldPrice:18900,size:"215/55R17",type:"Touring",vehicle:"car",rating:4.8,reviews:1100,load:"94",speed:"W",img:"https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&h=600&fit=crop",desc:"Quiet premium touring tyre focused on comfort and wet performance."},
+      {id:6,name:"BluEarth-GT",brand:"Yokohama",price:10500,oldPrice:null,size:"205/55R16",type:"Eco",vehicle:"car",rating:4.5,reviews:720,load:"91",speed:"V",img:"https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=600&h=600&fit=crop",desc:"Fuel-saving tyre with solid wet grip. Great value for daily drivers."},
+      {id:7,name:"Dueler H/T 684",brand:"Bridgestone",price:18600,oldPrice:null,size:"265/65R17",type:"Highway",vehicle:"suv",rating:4.6,reviews:640,load:"112",speed:"S",img:"https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&h=600&fit=crop",desc:"Durable highway terrain tyre for SUVs and light trucks. Quiet and long-lasting."},
+      {id:8,name:"Scorpion Verde",brand:"Pirelli",price:24500,oldPrice:27500,size:"235/55R18",type:"SUV",vehicle:"suv",rating:4.8,reviews:890,load:"100",speed:"V",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop",desc:"Eco-friendly SUV tyre with strong wet performance. Popular for Prado and similar."},
+      {id:9,name:"Geolandar A/T G015",brand:"Yokohama",price:22900,oldPrice:null,size:"265/65R17",type:"All-Terrain",vehicle:"suv",rating:4.7,reviews:780,load:"112",speed:"T",img:"https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=600&h=600&fit=crop",desc:"Tough all-terrain tyre for mixed on/off-road use. Excellent for Kenyan roads."},
+      {id:10,name:"Wrangler All-Terrain",brand:"Goodyear",price:31200,oldPrice:34500,size:"275/70R16",type:"All-Terrain",vehicle:"truck",rating:4.7,reviews:520,load:"114",speed:"S",img:"https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&h=600&fit=crop",desc:"Rugged all-terrain for pickups and light commercial vehicles."},
+      {id:11,name:"Conti HDR2",brand:"Continental",price:48500,oldPrice:null,size:"315/80R22.5",type:"Truck",vehicle:"truck",rating:4.6,reviews:210,load:"156",speed:"K",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop",desc:"Heavy-duty truck tyre built for long life and high load capacity."},
+      {id:12,name:"ContiVanContact 100",brand:"Continental",price:21500,oldPrice:null,size:"215/65R16",type:"Van",vehicle:"van",rating:4.5,reviews:310,load:"109",speed:"T",img:"https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=600&h=600&fit=crop",desc:"Commercial van tyre with high load capacity and reliable wet grip."},
+      {id:13,name:"CrossClimate 2",brand:"Michelin",price:19800,oldPrice:22500,size:"225/45R17",type:"All-Season",vehicle:"car",rating:4.9,reviews:2400,load:"94",speed:"W",img:"https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&h=600&fit=crop",desc:"Award-winning all-season tyre with excellent wet and dry grip for mixed conditions."},
+      {id:14,name:"Turanza 6",brand:"Bridgestone",price:15600,oldPrice:null,size:"215/55R17",type:"Touring",vehicle:"car",rating:4.7,reviews:680,load:"94",speed:"V",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop",desc:"Latest generation touring tyre with improved comfort and wet braking."},
+      {id:15,name:"EfficientGrip SUV",brand:"Goodyear",price:26800,oldPrice:null,size:"235/55R18",type:"SUV",vehicle:"suv",rating:4.6,reviews:430,load:"100",speed:"V",img:"https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=600&h=600&fit=crop",desc:"SUV-focused tyre balancing comfort, grip and mileage."},
+      {id:16,name:"Primacy SUV",brand:"Michelin",price:28900,oldPrice:31500,size:"265/65R17",type:"SUV",vehicle:"suv",rating:4.8,reviews:560,load:"112",speed:"H",img:"https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&h=600&fit=crop",desc:"Premium SUV tyre with excellent longevity and wet performance."},
+      {id:17,name:"Agilis 3",brand:"Michelin",price:19800,oldPrice:null,size:"215/65R16",type:"Van",vehicle:"van",rating:4.6,reviews:290,load:"109",speed:"T",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop",desc:"Light commercial tyre designed for durability and safety under load."},
+      {id:18,name:"Dueler A/T 001",brand:"Bridgestone",price:27500,oldPrice:null,size:"265/65R17",type:"All-Terrain",vehicle:"suv",rating:4.7,reviews:410,load:"112",speed:"T",img:"https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=600&h=600&fit=crop",desc:"Capable all-terrain tyre for SUVs that see both highway and rough roads."}
+    ];
+
+    let cart = JSON.parse(localStorage.getItem('tireshop_cart_v3')) || [];
+    let currentProduct = null;
+    let detailQty = 1;
+
+    function renderProducts(list = products) {
+      const grid = document.getElementById('productsGrid');
+      const noResults = document.getElementById('noResults');
+      if (list.length === 0) {
+        grid.innerHTML = '';
+        noResults.style.display = 'block';
+        return;
+      }
+      noResults.style.display = 'none';
+      grid.innerHTML = list.map(p => `
+        <div class="product-card">
+          <div class="product-badge">${p.vehicle.toUpperCase()}</div>
+          <div class="product-img" onclick="showDetail(${p.id})">
+            <img src="${p.img}" alt="${p.brand} ${p.name}" loading="lazy">
+          </div>
+          <div class="product-info">
+            <div class="product-brand">${p.brand}</div>
+            <h3 onclick="showDetail(${p.id})">${p.name}</h3>
+            <p class="product-size">${p.size}</p>
+            <div class="product-rating">★ ${p.rating}</div>
+            <div class="product-price">
+              <span class="price">KSh ${p.price.toLocaleString()}</span>
+            </div>
+            <div class="product-actions">
+              <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();addToCart(${p.id})">Add to Cart</button>
+              <button class="btn btn-outline-dark btn-sm" onclick="event.stopPropagation();showDetail(${p.id})">View</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function applyFilters() {
+      const vehicle = document.getElementById('filterVehicle').value;
+      const size = document.getElementById('filterSize').value;
+      const brand = document.getElementById('filterBrand').value;
+      const maxPrice = parseFloat(document.getElementById('filterPrice').value) || Infinity;
+      const filtered = products.filter(p => {
+        if (vehicle && p.vehicle !== vehicle) return false;
+        if (size && p.size !== size) return false;
+        if (brand && p.brand !== brand) return false;
+        if (p.price > maxPrice) return false;
+        return true;
+      });
+      renderProducts(filtered);
+      document.getElementById('products').scrollIntoView({behavior:'smooth'});
+    }
+    function clearFilters() {
+      document.getElementById('filterVehicle').value = '';
+      document.getElementById('filterSize').value = '';
+      document.getElementById('filterBrand').value = '';
+      document.getElementById('filterPrice').value = '';
+      renderProducts();
+    }
+    function filterByVehicle(v) {
+      document.getElementById('filterVehicle').value = v;
+      applyFilters();
+    }
+    function filterByBrand(b) {
+      document.getElementById('filterBrand').value = b;
+      applyFilters();
+    }
+
+    function showDetail(id) {
+      currentProduct = products.find(p => p.id === id);
+      if (!currentProduct) return;
+      detailQty = 1;
+      document.getElementById('detailQty').textContent = 1;
+      document.getElementById('detailImg').src = currentProduct.img;
+      document.getElementById('detailName').textContent = currentProduct.brand + ' ' + currentProduct.name;
+      document.getElementById('detailRating').textContent = `★ ${currentProduct.rating} (${currentProduct.reviews.toLocaleString()} reviews)`;
+      document.getElementById('detailBrand').textContent = currentProduct.brand;
+      document.getElementById('detailPrice').textContent = `KSh ${currentProduct.price.toLocaleString()}`;
+      document.getElementById('detailOld').textContent = currentProduct.oldPrice ? `KSh ${currentProduct.oldPrice.toLocaleString()}` : '';
+      document.getElementById('detailDesc').textContent = currentProduct.desc;
+      document.getElementById('detailSize').textContent = currentProduct.size;
+      document.getElementById('detailType').textContent = currentProduct.type;
+      document.getElementById('detailVehicle').textContent = currentProduct.vehicle.toUpperCase();
+      document.getElementById('detailLoad').textContent = currentProduct.load;
+      document.getElementById('detailSpeed').textContent = currentProduct.speed;
+      document.getElementById('detailThumbs').innerHTML = `
+        <img src="${currentProduct.img}" class="active" onclick="document.getElementById('detailImg').src=this.src;this.classList.add('active');this.parentNode.querySelectorAll('img').forEach(i=>{if(i!==this)i.classList.remove('active')})">
+        <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=200&h=200&fit=crop" onclick="document.getElementById('detailImg').src=this.src;this.classList.add('active');this.parentNode.querySelectorAll('img').forEach(i=>{if(i!==this)i.classList.remove('active')})">
+        <img src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=200&h=200&fit=crop" onclick="document.getElementById('detailImg').src=this.src;this.classList.add('active');this.parentNode.querySelectorAll('img').forEach(i=>{if(i!==this)i.classList.remove('active')})">
+      `;
+      updateDetailWA();
+      document.getElementById('homeView').classList.add('hidden');
+      document.getElementById('detailView').classList.remove('hidden');
+      window.scrollTo(0,0);
+    }
+    function showHome() {
+      document.getElementById('detailView').classList.add('hidden');
+      document.getElementById('homeView').classList.remove('hidden');
+      document.getElementById('navLinks').classList.remove('mobile-open');
+    }
+    function changeQty(d) {
+      detailQty = Math.max(1, detailQty + d);
+      document.getElementById('detailQty').textContent = detailQty;
+      updateDetailWA();
+    }
+    function updateDetailWA() {
+      if (!currentProduct) return;
+      const msg = encodeURIComponent(`Hello TireShop,\n\nI want to order:\n${currentProduct.brand} ${currentProduct.name}\nSize: ${currentProduct.size}\nPrice: KSh ${currentProduct.price.toLocaleString()}\nQuantity: ${detailQty}\n\nPlease confirm availability.`);
+      document.getElementById('detailWA').href = `https://wa.me/254789163037?text=${msg}`;
+    }
+    document.getElementById('detailAddCart').addEventListener('click', () => {
+      if (!currentProduct) return;
+      for (let i = 0; i < detailQty; i++) addToCart(currentProduct.id, false);
+      openCart();
+    });
+
+    function addToCart(id, open = true) {
+      const p = products.find(x => x.id === id);
+      if (!p) return;
+      const existing = cart.find(item => item.id === id);
+      if (existing) existing.qty += 1;
+      else cart.push({id:p.id,name:p.brand+' '+p.name,price:p.price,img:p.img,size:p.size,qty:1});
+      saveCart();
+      updateCartUI();
+      if (open) openCart();
+    }
+    function updateCartUI() {
+      const count = cart.reduce((s,i) => s + i.qty, 0);
+      document.querySelector('.cart-count').textContent = count;
+      const el = document.getElementById('cartItems');
+      if (cart.length === 0) {
+        el.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+        document.getElementById('cartTotal').textContent = 'KSh 0';
+        document.getElementById('cartWA').href = 'https://wa.me/254789163037';
+        return;
+      }
+      el.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-img"><img src="${item.img}" alt="${item.name}"></div>
+          <div class="cart-item-info">
+            <h4>${item.name}</h4>
+            <div class="price">KSh ${item.price.toLocaleString()} × ${item.qty}</div>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart(${item.id})">×</button>
+        </div>
+      `).join('');
+      const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
+      document.getElementById('cartTotal').textContent = `KSh ${total.toLocaleString()}`;
+      let msg = 'Hello TireShop,\n\nI want to order:\n\n';
+      cart.forEach(i => { msg += `• ${i.name} (${i.size}) × ${i.qty} = KSh ${(i.price*i.qty).toLocaleString()}\n`; });
+      msg += `\nTotal: KSh ${total.toLocaleString()}\n\nPlease confirm availability and delivery.`;
+      document.getElementById('cartWA').href = `https://wa.me/254789163037?text=${encodeURIComponent(msg)}`;
+    }
+    function removeFromCart(id) {
+      cart = cart.filter(i => i.id !== id);
+      saveCart();
+      updateCartUI();
+    }
+    function saveCart() { localStorage.setItem('tireshop_cart_v3', JSON.stringify(cart)); }
+    function openCart() {
+      document.getElementById('cartDrawer').classList.add('open');
+      document.getElementById('cartOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCartDrawer() {
+      document.getElementById('cartDrawer').classList.remove('open');
+      document.getElementById('cartOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.querySelector('.cart-btn').addEventListener('click', openCart);
+    document.getElementById('closeCart').addEventListener('click', closeCartDrawer);
+    document.getElementById('cartOverlay').addEventListener('click', closeCartDrawer);
+    document.getElementById('clearCartBtn').addEventListener('click', () => {
+      cart = [];
+      saveCart();
+      updateCartUI();
+    });
+
+    function sendWhatsApp(e) {
+      e.preventDefault();
+      const name = document.getElementById('cName').value.trim();
+      const phone = document.getElementById('cPhone').value.trim();
+      const vehicle = document.getElementById('cVehicle').value.trim();
+      const message = document.getElementById('cMessage').value.trim();
+      let text = `Hello TireShop,\n\nName: ${name}\nPhone: ${phone}`;
+      if (vehicle) text += `\nVehicle/Size: ${vehicle}`;
+      text += `\n\nMessage: ${message}`;
+      window.open(`https://wa.me/254789163037?text=${encodeURIComponent(text)}`, '_blank');
+      e.target.reset();
+    }
+
+    // Theme
+    const html = document.documentElement;
+    const saved = localStorage.getItem('tireshop_theme') || 'light';
+    html.setAttribute('data-theme', saved);
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('tireshop_theme', next);
+    });
+
+    // FAQ
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const active = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        if (!active) item.classList.add('active');
+      });
+    });
+
+    // Mobile
+    document.getElementById('mobileToggle').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('mobile-open');
+    });
+
+    renderProducts();
+    updateCartUI();
+  </script>
+</body>
+</html>
